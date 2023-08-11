@@ -103,5 +103,5 @@ async def stats(bot, update):
             f'├ <b>CPU:</b> {cpuUsage}% ' \
             f'├ <b>RAM:</b> {memory}% ' \
             f'╰ <b>Disk:</b> {disk}%\n\n'\
-            f'⌬<b>-------------------</b>⌬'
+            f'⌬<b>-------[Tomen](https://t.me/TomenMain)--------</b>⌬'
   await update.reply_text(botstats)
