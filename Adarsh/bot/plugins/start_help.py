@@ -6,34 +6,23 @@ logger = logging.getLogger(__name__)
 from Adarsh.bot.plugins.stream import MY_PASS
 from Adarsh.utils.human_readable import humanbytes
 from Adarsh.utils.database import Database
-from pyrogram import filters
+from pyrogram import filters, ReplyKeyboardMarkup,
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant
 from Adarsh.utils.file_properties import get_name, get_hash, get_media_file_size
 db = Database(Var.DATABASE_URL, Var.name)
 from pyrogram.types import ReplyKeyboardMarkup
 
-if MY_PASS:
-            buttonz=ReplyKeyboardMarkup(
-            [
-                ["start⚡️","help📚","login🔑","DC"],
-                ["follow❤️","ping📡","status📊","maintainers😎"]
-                        
-            ],
-            resize_keyboard=True
-        )
-else:
-            buttonz=ReplyKeyboardMarkup(
-            [
-                ["start⚡️","help📚","DC"],
-                ["follow❤️","ping📡","status📊","maintainers😎"]
-                        
-            ],
-            resize_keyboard=True
-        )
+button_main_channel = InlineKeyboardButton("Main Channel", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+button_owner = InlineKeyboardButton("Owner", url="https://t.me/MadAsGhost")
+button_status = InlineKeyboardButton("Status", callback_data="check_status")
 
-            
-            
+buttons = [
+    [button_main_channel],
+    [button_owner, button_status]
+]
+
+
 @StreamBot.on_message((filters.command("start") | filters.regex('start⚡️')) & filters.private )
 async def start(b, m):
     if not await db.is_user_exist(m.from_user.id):
@@ -53,20 +42,13 @@ async def start(b, m):
                 )
                 return
         except UserNotParticipant:
-             await StreamBot.send_photo(
-                chat_id=m.chat.id,
+           await bot.send_photo(
+                chat_id=message.chat.id,
                 photo="https://graph.org/file/d454b953103d42d759f8d.jpg",
-                caption="<i>𝙹𝙾𝙸𝙽 CHANNEL 𝚃𝙾 𝚄𝚂𝙴 𝙼𝙴🔐</i>",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton("Jᴏɪɴ ɴᴏᴡ 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
-                        ]
-                    ]
-                ),
-                
+                caption="Join our main channel to use this bot!",
+                reply_markup=InlineKeyboardMarkup(buttons)
             )
-             return
+            return
         except Exception:
             await b.send_message(
                 chat_id=m.chat.id,
@@ -75,10 +57,11 @@ async def start(b, m):
                 disable_web_page_preview=True)
             return
     await StreamBot.send_photo(
-        chat_id=m.chat.id,
-        photo ="https://graph.org/file/d454b953103d42d759f8d.jpg",
-        caption =f'Hi {m.from_user.mention(style="md")}!,\nI am Telegram File to Link Generator Bot with Channel support.\nSend me any file and get a direct download link and streamable link.!',
-        reply_markup=buttonz)
+        chat_id=message.chat.id,
+        photo="https://graph.org/file/d454b953103d42d759f8d.jpg",
+        caption=f'Hi {message.from_user.mention(style="md")}!,\nI am Telegram File to Link Generator Bot with Channel support.\nSend me any file and get a direct download link and streamable link.!',
+        reply_markup=ReplyKeyboardMarkup(buttons, resize_keyboard=True)
+    )
 
 
 @StreamBot.on_message((filters.command("help") | filters.regex('help📚')) & filters.private )
