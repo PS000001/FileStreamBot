@@ -38,7 +38,7 @@ async def about_handler(bot, message):
     
     await message.reply_text(user_info + "\nChoose a feature:", reply_markup=keyboard)
 
-@StreamBot.on_callback_query(filters.regex("^(help|ping|status|info)$"))
+@StreamBot.on_callback_query
 async def show_feature_info(bot, callback_query):
     feature = callback_query.data
     detailed_info = ""
