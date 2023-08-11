@@ -97,14 +97,9 @@
           "value": "File-To-Link",
           "required": false
       }
-  },
-  "buildpacks": [{
-      "url": "heroku/python"
-    }],
-  "formation": {
-      "web": {
-          "quantity": 1,
-          "size": "free"
-      }
-  }
+    },
+    "buildpacks":
+        [
+            {"url": "heroku/python"}
+        ]      
 }
