@@ -20,7 +20,7 @@ pass_dict = {}
 pass_db = Database(Var.DATABASE_URL, "ag_passwords")
 
 
-@StreamBot.on_message((filters.regex("login🔑") | filters.command("login")) , group=4)
+@StreamBot.on_message(filters.command("login")) , group=4)
 async def login_handler(c: Client, m: Message):
     try:
         try:
@@ -72,27 +72,25 @@ async def private_receive_handler(c: Client, m: Message):
                     disable_web_page_preview=True
                 )
                 return 
-        except UserNotParticipant:
-            await c.send_message(
-                chat_id=m.chat.id,
-                text="""<i>𝙹𝙾𝙸𝙽 UPDATES CHANNEL 𝚃𝙾 𝚄𝚂𝙴 𝙼𝙴 🔐</i>""",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton("Jᴏɪɴ ɴᴏᴡ 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
-                        ]
-                    ]
-                ),
-                
+    except UserNotParticipant:
+        await b.send_photo(
+            chat_id=m.chat.id,
+            photo="https://graph.org/file/d454b953103d42d759f8d.jpg",
+            text="To access the bot's features, please join the support channel by clicking the button below:",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [button_support_channel]
+                ]
             )
-            return
-        except Exception as e:
-            await m.reply_text(e)
-            await c.send_message(
-                chat_id=m.chat.id,
-                text="**Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍʏ ʙᴏss** [Adarsh Goel](https://github.com/adarsh-goel)",
-                
-                disable_web_page_preview=True)
+        )
+        return
+
+    await b.send_message(
+        chat_id=m.chat.id,
+        text="""<b> Send me any file or video i will give you streamable link and download link.</b>\n
+<b> I also support Channels, add me to you Channel and send any media files and see miracle✨ also send /list to know all commands""",
+        reply_markup=InlineKeyboardMarkup(buttons)
+    )
             return
     try:
         log_msg = await m.forward(chat_id=Var.BIN_CHANNEL)
