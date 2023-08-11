@@ -13,11 +13,6 @@ def get_uptime():
     uptime = time.time() - StartTime
     return time.strftime("%H:%M:%S", time.gmtime(uptime))
 
-@StreamBot.on_message(filters.command("start"))
-async def start_handler(_, message):
-    global total_users
-    total_users += 1
-    await message.reply_text("Welcome to the bot!")
 
 @StreamBot.on_message(filters.command("about"))
 async def about_handler(bot, message):
