@@ -17,12 +17,12 @@ async def maintainers(b,m):
     except Exception:
                 await b.send_message(
                     chat_id=m.chat.id,
-                    text="I am Coded By [Adarsh Goel](https://github.com/adarsh-goel)",
+                    text="I am Created By [Mikey](https://github.com/BalaPriyan/FileStreamBot)",
                     
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton("Developer💻", url=f"https://github.com/adarsh-goel")
+                                InlineKeyboardButton("Owner", url=f"https://t.me/MadAsGhost")
                             ]
                         ]
                     ),
@@ -42,7 +42,7 @@ async def follow_user(b,m):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton("FOLLOW ME", url=f"https://GITHUB.COM/adarsh-goel")
+                                InlineKeyboardButton("FOLLOW ME", url=f"@TomenMain")
                             ]
                         ]
                     ),
@@ -93,13 +93,15 @@ async def stats(bot, update):
   cpuUsage = psutil.cpu_percent(interval=0.5)
   memory = psutil.virtual_memory().percent
   disk = psutil.disk_usage('/').percent
-  botstats = f'<b>Bot Uptime:</b> {currentTime}\n' \
-            f'<b>Total disk space:</b> {total}\n' \
-            f'<b>Used:</b> {used}  ' \
-            f'<b>Free:</b> {free}\n\n' \
-            f'📊Data Usage📊\n<b>Upload:</b> {sent}\n' \
-            f'<b>Down:</b> {recv}\n\n' \
-            f'<b>CPU:</b> {cpuUsage}% ' \
-            f'<b>RAM:</b> {memory}% ' \
-            f'<b>Disk:</b> {disk}%'
+  botstats = f'⌬<b><i><u>Bot Statistics</u></i></b>\n\n'\
+            f'╭ <b>Bot Uptime:</b> {currentTime}\n' \
+            f'├ <b>Total disk space:</b> {total}\n' \
+            f'├ <b>Used:</b> {used}  ' \
+            f'├ <b>Free:</b> {free}\n\n' \
+            f'├ Data Usage\n<b>Upload:</b> {sent}\n' \
+            f'├ <b>Down:</b> {recv}\n\n' \
+            f'├ <b>CPU:</b> {cpuUsage}% ' \
+            f'├ <b>RAM:</b> {memory}% ' \
+            f'╰ <b>Disk:</b> {disk}%\n\n'\
+            f'⌬<b>-------------------</b>⌬'
   await update.reply_text(botstats)
